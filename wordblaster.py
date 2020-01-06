@@ -72,7 +72,7 @@ device = MonkeyRunner.waitForConnection()
 # 3 LETTER BRUTEFORCER
 ###################################################################
 
-for letters in range (3,7):
+for letters in range (3,circleSize):
 
     # The starting point of the line
     draw_x = [0,0,0,0,0,0,0,0]
@@ -81,11 +81,11 @@ for letters in range (3,7):
     filepath = '';
     if letters == 3:
         filepath = '/home/matt/code/python3/wordblaster/3letter.txt'
-    if letters == 4:
+    elif letters == 4:
         filepath = '/home/matt/code/python3/wordblaster/4letter.txt'
-    if letters == 5:
+    elif letters == 5:
         filepath = '/home/matt/code/python3/wordblaster/5letter.txt'
-    if letters == 6:
+    elif letters == 6:
         filepath = '/home/matt/code/python3/wordblaster/6letter.txt'
     f = open(filepath, "r")
     
@@ -96,15 +96,18 @@ for letters in range (3,7):
     
     # For every permutation of length of letters...
     for line in content:
+        # For every length of letter chain
         for i in range(1, letters+1):
             pos = i-1
 
+            # For every letter in the circle
             for j in range(0, circleSize):
     
                 if int(line[j]) == i:
                     draw_x[pos] = circle6_x[j]  # TODO: Rewrite a way to
                     draw_y[pos] = circle6_y[j]  # TODO: work with smaller/bigger circles
 
+        # Perform the touch screen interaction here
         device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
         time.sleep(speed)
         
