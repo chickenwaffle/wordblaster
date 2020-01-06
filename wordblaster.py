@@ -1,7 +1,7 @@
 #!/usr/bin/env monkeyrunner                                                         
 #
 # This is a Wordscapes bruteforcer for Python 2.5.3
-# Version 0.1
+# Version 1.0
 #
 # Created by Matt Wilson on
 # January 5, 2020
@@ -59,6 +59,12 @@ from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
 # The lower the number, the faster the lines are drawn.
 # Do not go lower than .03
 speed = .03
+timeBetweenWords = .08
+
+circle6_x = [ 540,  750,  750,  540,  330, 330 ]
+circle6_y = [1500, 1620, 1860, 1980, 1860, 1620]
+
+circleSize = 6
 
 device = MonkeyRunner.waitForConnection()
 
@@ -66,57 +72,47 @@ device = MonkeyRunner.waitForConnection()
 # 3 LETTER BRUTEFORCER
 ###################################################################
 
-letters = 3
+for letters in range (3,7):
 
-# The starting point of the line
-draw_x = [0,0,0,0,0,0,0,0]
-draw_y = [0,0,0,0,0,0,0,0]
-
-filepath = '';
-if letters == 3:
-    filepath = '/home/matt/code/python3/wordblaster/3letter.txt'
-f = open(filepath, "r")
-
-# Read all combinations as strings into an array called 'content'
-content = f.readlines()
-
-# Set up the line drawer
-for line in content:
-    for i in range(1, letters+1):
-        pos = i-1
-
-        if int(line[0]) == i:
-            draw_x[pos] = 540
-            draw_y[pos] = 1500
-
-        elif int(line[1]) == i:
-            draw_x[pos] = 750
-            draw_y[pos] = 1620
-
-        elif int(line[2]) == i:
-            draw_x[pos] = 750
-            draw_y[pos] = 1860
-
-        elif int(line[3]) == i:
-            draw_x[pos] = 540
-            draw_y[pos] = 1980
-
-        elif int(line[4]) == i:
-            draw_x[pos] = 330
-            draw_y[pos] = 1860
-
-        elif int(line[5]) == i:
-            draw_x[pos] = 330
-            draw_y[pos] = 1620
-
-    device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
-    time.sleep(speed)
+    # The starting point of the line
+    draw_x = [0,0,0,0,0,0,0,0]
+    draw_y = [0,0,0,0,0,0,0,0]
     
-    for i in range(1, letters):
-        device.touch(draw_x[i], draw_y[i], MonkeyDevice.MOVE)
+    filepath = '';
+    if letters == 3:
+        filepath = '/home/matt/code/python3/wordblaster/3letter.txt'
+    if letters == 4:
+        filepath = '/home/matt/code/python3/wordblaster/4letter.txt'
+    if letters == 5:
+        filepath = '/home/matt/code/python3/wordblaster/5letter.txt'
+    if letters == 6:
+        filepath = '/home/matt/code/python3/wordblaster/6letter.txt'
+    f = open(filepath, "r")
+    
+    # Read all combinations as strings into an array called 'content'
+    content = f.readlines()
+
+    f.close()
+    
+    # For every permutation of length of letters...
+    for line in content:
+        for i in range(1, letters+1):
+            pos = i-1
+
+            for j in range(0, circleSize):
+    
+                if int(line[j]) == i:
+                    draw_x[pos] = circle6_x[j]  # TODO: Rewrite a way to
+                    draw_y[pos] = circle6_y[j]  # TODO: work with smaller/bigger circles
+
+        device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
         time.sleep(speed)
+        
+        for i in range(1, letters):
+            device.touch(draw_x[i], draw_y[i], MonkeyDevice.MOVE)
+            time.sleep(speed)
+    
+        device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
 
-    device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
-
-# Delay between words
-    time.sleep(.1)
+        # Delay between words
+        time.sleep(timeBetweenWords)
