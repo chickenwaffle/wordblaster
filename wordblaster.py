@@ -72,7 +72,7 @@ device = MonkeyRunner.waitForConnection()
 # 3 LETTER BRUTEFORCER
 ###################################################################
 
-for letters in range (3,circleSize):
+for letters in range (3, circleSize+1):
 
     # The starting point of the line
     draw_x = [0,0,0,0,0,0,0,0]
