@@ -59,7 +59,7 @@ from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
 # The lower the number, the faster the lines are drawn.
 # Do not go lower than .03
 speed = .03
-timeBetweenWords = .08
+timeBetweenWords = .1
 
 circle6_x = [ 540,  750,  750,  540,  330, 330 ]
 circle6_y = [1500, 1620, 1860, 1980, 1860, 1620]
