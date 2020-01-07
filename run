@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/home/matt/Android/Sdk/tools/bin/monkeyrunner wordblaster.py
+/home/matt/Android/Sdk/tools/bin/monkeyrunner wordblaster.py "$@"

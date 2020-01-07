@@ -53,40 +53,54 @@
 #                        (540, 1980)
                                                                                     
 import time
-
+import argparse
 from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
+
+parser = argparse.ArgumentParser(description='Defeat Wordscapes at its own game')
+parser.add_argument('-c', \
+                    '--circle_size', \
+                    type=int, \
+                    default=6, \
+                    metavar='', \
+                    help='Number of letters in circle [default=6]')
+parser.add_argument('-l', \
+                    '--min_length', \
+                    type=int, \
+                    default=3, \
+                    metavar='', \
+                    help='length of words to start bruteforcing [default=3]')
+args = parser.parse_args()
 
 # The lower the number, the faster the lines are drawn.
 # Do not go lower than .03
-speed = .03
+speed = .05
 timeBetweenWords = .1
 
-circle6_x = [ 540,  750,  750,  540,  330, 330 ]
-circle6_y = [1500, 1620, 1860, 1980, 1860, 1620]
-
-circleSize = 6
+CIRCLE6_X = [ 540,  750,  750,  540,  330, 330 ]
+CIRCLE6_Y = [1500, 1620, 1860, 1980, 1860, 1620]
 
 device = MonkeyRunner.waitForConnection()
 
 ###################################################################
-# 3 LETTER BRUTEFORCER
+# THE BRUTEFORCER
 ###################################################################
 
-for letters in range (3, circleSize+1):
+for letters in range (args.min_length, args.circle_size+1):
 
     # The starting point of the line
     draw_x = [0,0,0,0,0,0,0,0]
     draw_y = [0,0,0,0,0,0,0,0]
     
+    # Load the appropriate file depending on the length of word
     filepath = '';
     if letters == 3:
-        filepath = '/home/matt/code/python3/wordblaster/3letter.txt'
+        filepath = '3letter.txt'
     elif letters == 4:
-        filepath = '/home/matt/code/python3/wordblaster/4letter.txt'
+        filepath = '4letter.txt'
     elif letters == 5:
-        filepath = '/home/matt/code/python3/wordblaster/5letter.txt'
+        filepath = '5letter.txt'
     elif letters == 6:
-        filepath = '/home/matt/code/python3/wordblaster/6letter.txt'
+        filepath = '6letter.txt'
     f = open(filepath, "r")
     
     # Read all combinations as strings into an array called 'content'
@@ -101,11 +115,11 @@ for letters in range (3, circleSize+1):
             pos = i-1
 
             # For every letter in the circle
-            for j in range(0, circleSize):
+            for j in range(0, args.circle_size):
     
                 if int(line[j]) == i:
-                    draw_x[pos] = circle6_x[j]  # TODO: Rewrite a way to
-                    draw_y[pos] = circle6_y[j]  # TODO: work with smaller/bigger circles
+                    draw_x[pos] = CIRCLE6_X[j]  # TODO: Rewrite a way to
+                    draw_y[pos] = CIRCLE6_Y[j]  # TODO: work with smaller/bigger circles
 
         # Perform the touch screen interaction here
         device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
