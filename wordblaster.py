@@ -73,9 +73,10 @@ args = parser.parse_args()
 
 # The lower the number, the faster the lines are drawn.
 # Do not go lower than .03
-speed = .05
+speed = .06
 timeBetweenWords = .1
 
+# Constant coordinates for letters positions in the circle, listed by size
 CIRCLE6_X = [ 540,  750,  750,  540,  330, 330 ]
 CIRCLE6_Y = [1500, 1620, 1860, 1980, 1860, 1620]
 
@@ -87,7 +88,9 @@ device = MonkeyRunner.waitForConnection()
 
 for letters in range (args.min_length, args.circle_size+1):
 
-    # The starting point of the line
+    # These two variables store x,y coordinates for the line drawer.
+    # The program will insert values into these arrays after
+    #   parsing lines from the loaded permutation file.
     draw_x = [0,0,0,0,0,0,0,0]
     draw_y = [0,0,0,0,0,0,0,0]
     
@@ -130,6 +133,7 @@ for letters in range (args.min_length, args.circle_size+1):
             time.sleep(speed)
     
         device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
+        time.sleep(speed)
 
         # Delay between words
         time.sleep(timeBetweenWords)
