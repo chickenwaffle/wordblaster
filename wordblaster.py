@@ -82,7 +82,7 @@ if __name__ == "__main__":
     
     # The lower the number, the faster the lines are drawn.
     # Do not go lower than .03
-    speed = .06
+    speed = .05
 
     # Constant coordinates for letters positions in the circle, listed by size
     CIRCLE6_X = [ 540,  750,  750,  540,  330, 330 ]
