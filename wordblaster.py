@@ -79,10 +79,12 @@ args = parser.parse_args()
 
 
 if __name__ == "__main__":
-    
+    # The words found in dictionaries will be stored here
+    #found_words = []
+    found_perms = []
     # The lower the number, the faster the lines are drawn.
     # Do not go lower than .03
-    speed = .05
+    speed = .06
 
     # Constant coordinates for letters positions in the circle, listed by size
     CIRCLE6_X = [ 540,  750,  750,  540,  330, 330 ]
@@ -98,32 +100,41 @@ if __name__ == "__main__":
 
         # These two variables store x,y coordinates for the line drawer.
         # The program will insert values into these arrays after
-        #   parsing lines from the loaded permutation file.
+        #   parsing lines from the loaded drawpath file.
         draw_x = [0,0,0,0,0,0,0]
         draw_y = [0,0,0,0,0,0,0]
-        
-        # Load the appropriate file depending on the length of word
-        filepath = '';
-        if letters == 3:
-            filepath = 'drawpaths/6circle_3letter.txt'
-        elif letters == 4:
-            filepath = 'drawpaths/6circle_4letter.txt'
-        elif letters == 5:
-            filepath = 'drawpaths/6circle_5letter.txt'
-        elif letters == 6:
-            filepath = 'drawpaths/6circle_6letter.txt'
-        f = open(filepath, "r")
-        
-        # Read all combinations as strings into an array called 'content'
-        content = f.readlines()
 
-        f.close()
+        # Load the appropriate file depending on the length of word
+        drawpath_file = ''
+        dict_file = ''
+
+        if letters == 3:
+            drawpath_file = 'drawpaths/6circle_3letter.txt'
+            dict_file     = 'dictionaries/3dict.txt'
+        elif letters == 4:
+            drawpath_file = 'drawpaths/6circle_4letter.txt'
+            dict_file     = 'dictionaries/4dict.txt'
+        elif letters == 5:
+            drawpath_file = 'drawpaths/6circle_5letter.txt'
+            dict_file     = 'dictionaries/5dict.txt'
+        elif letters == 6:
+            drawpath_file = 'drawpaths/6circle_6letter.txt'
+            dict_file     = 'dictionaries/6dict.txt'
+        f1 = open(drawpath_file, "r")
+        f2 = open(dict_file    , "r")
         
+        permutations = f1.readlines()
+        dictionary   = f2.readlines()
+
+        # Remove new line characters at the end of each word
+        dictionary = [endl.strip() for endl in dictionary]
+
+        f1.close()
+        f2.close()
+
         # For every permutation of length of letters...
-        for line in content:
-            
-            # clear the output buffer
-            output = ""
+        for perm in permutations:
+            stringbuilder = ""
 
             # For every length of letter chain
             for i in range(1, letters+1):
@@ -132,21 +143,32 @@ if __name__ == "__main__":
                 # For every letter in the circle
                 for j in range(0, args.circle_size):
         
-                    if int(line[j]) == i:
+                    # Constructs a readable word from the permutation
+                    # if the letters are        'abcdef',
+                    # and the permutation is    '210300',
+                    # the resulting word is     'bad'   .
+                    if int(perm[j]) == i:
+                        stringbuilder += args.letter_bank[j]
+
                         draw_x[pos] = CIRCLE6_X[j]  # TODO: Rewrite a way to
                         draw_y[pos] = CIRCLE6_Y[j]  # TODO: work with smaller/bigger circles
 
-                        output += args.letter_bank[j]
+            # If an actual word is found, store the word in the 
+            # array of words, and the permutation in the array
+            # of perms
+            for word in dictionary:
+                if stringbuilder == word:
+                    print ("Word found: " + stringbuilder)
 
-            # Perform the touch screen interaction here
-            device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
-            time.sleep(speed)
-            
-            for i in range(1, letters):
-                device.touch(draw_x[i], draw_y[i], MonkeyDevice.MOVE)
-                time.sleep(speed)
+                    # Perform the touch screen interaction here
+                    device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
+                    time.sleep(speed)
         
-            device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
-            time.sleep(speed)
+                    for i in range(1, letters):
+                        device.touch(draw_x[i], draw_y[i], MonkeyDevice.MOVE)
+                        time.sleep(speed)
+   
+                    device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
+                    time.sleep(speed)
 
-            print (output)
+                    time.sleep(speed*5)
