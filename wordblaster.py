@@ -76,12 +76,17 @@ parser.add_argument('letter_bank', \
                     help='letters in the circle, starting from the top going clockwise')
 args = parser.parse_args()
 
-
+def duplicate (stringbuilder, found_words):
+    if stringbuilder in found_words:
+        print ("Found word: " + stringbuilder + " (duplicate)")
+        return True
+    else:
+        return False
 
 if __name__ == "__main__":
     # The words found in dictionaries will be stored here
-    #found_words = []
-    found_perms = []
+    found_words = []
+
     # The lower the number, the faster the lines are drawn.
     # Do not go lower than .03
     speed = .06
@@ -93,7 +98,7 @@ if __name__ == "__main__":
     device = MonkeyRunner.waitForConnection()
 
     ###################################################################
-    # THE BRUTEFORCER
+    # THE SMARTFORCER
     ###################################################################
 
     for letters in range (args.min, args.circle_size+1):
@@ -129,6 +134,8 @@ if __name__ == "__main__":
         # Remove new line characters at the end of each word
         dictionary = [endl.strip() for endl in dictionary]
 
+        # The permutations and dictionary are loaded into memory
+        # and we no longer need their file objects.
         f1.close()
         f2.close()
 
@@ -157,7 +164,8 @@ if __name__ == "__main__":
             # array of words, and the permutation in the array
             # of perms
             for word in dictionary:
-                if stringbuilder == word:
+                if stringbuilder == word and not duplicate(stringbuilder, found_words):
+                    found_words.append(stringbuilder)
                     print ("Word found: " + stringbuilder)
 
                     # Perform the touch screen interaction here
