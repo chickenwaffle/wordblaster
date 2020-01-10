@@ -1,10 +1,10 @@
 #!/usr/bin/env monkeyrunner                                                         
 #
-# This is a Wordscapes bruteforcer for Jython 2.5.3
-# Version 1.4
+# This is a Wordscapes "smartforcer" for Jython 2.5.3
+# Version 1.0
 #
 # Created by Matt Wilson
-# January 5, 2020
+# January 8, 2020
 #
 #
 #
