@@ -166,7 +166,7 @@ if __name__ == "__main__":
             for word in dictionary:
                 if stringbuilder == word and not duplicate(stringbuilder, found_words):
                     found_words.append(stringbuilder)
-                    print ("Word found: " + stringbuilder)
+                    print ("Found word: " + stringbuilder)
 
                     # Perform the touch screen interaction here
                     device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
@@ -180,3 +180,4 @@ if __name__ == "__main__":
                     time.sleep(speed)
 
                     time.sleep(speed*5)
+                    break
