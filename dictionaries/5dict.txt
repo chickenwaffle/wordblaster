@@ -3398,7 +3398,6 @@ cruse
 crush
 crust
 cruth
-crwth
 csect
 csnet
 ctene
@@ -5070,7 +5069,6 @@ flawn
 flaws
 flaxy
 flche
-fldxt
 fleay
 fleak
 fleam
@@ -5255,7 +5253,6 @@ foxes
 foxie
 foxly
 fplot
-fpsps
 frack
 fract
 frags
@@ -6334,7 +6331,6 @@ hazen
 hazer
 hazes
 hazle
-hdqrs
 heady
 heads
 heald
@@ -9341,7 +9337,6 @@ mowth
 moxas
 moxie
 mozos
-mphps
 mpret
 msink
 mster
@@ -10514,7 +10509,6 @@ pewee
 pewit
 pflag
 pfund
-pgntt
 phaca
 phaet
 phage
@@ -10550,7 +10544,6 @@ phose
 phoss
 photo
 phots
-phpht
 phren
 piaba
 piala
@@ -12944,7 +12937,6 @@ smore
 smote
 smous
 smout
-smrgs
 smurr
 smuse
 smush

@@ -549,12 +549,7 @@ bawd
 bawl
 bawn
 baze
-bbls
-bchs
-bdft
 bdle
-bdls
-bdrm
 bead
 beak
 beal
@@ -687,10 +682,6 @@ bixa
 bize
 bizz
 bkcy
-bkgd
-bklr
-bkpr
-bkpt
 blab
 blad
 blae
@@ -701,8 +692,6 @@ blan
 blas
 blat
 blaw
-bldg
-bldr
 blea
 bleb
 bled
@@ -723,7 +712,6 @@ blub
 blue
 blup
 blur
-blvd
 boar
 boas
 boat
@@ -855,10 +843,8 @@ broo
 bros
 brot
 brow
-brrr
 brum
 brut
-bskt
 btry
 bual
 buat
@@ -1006,8 +992,6 @@ cawl
 caws
 caza
 ccid
-cckw
-ccws
 ceca
 cede
 cedi
@@ -1064,7 +1048,6 @@ chip
 chis
 chit
 chiv
-chmn
 chob
 choy
 chok
@@ -1138,8 +1121,6 @@ clow
 club
 clue
 clum
-cmdg
-cmdr
 coak
 coal
 coan
@@ -1284,7 +1265,6 @@ crom
 crop
 crow
 crpe
-crts
 crub
 crud
 crum
@@ -1292,11 +1272,7 @@ crup
 crus
 crut
 crux
-crwd
-csch
-csmp
 ctge
-ctrl
 cuba
 cube
 cubi
@@ -1343,7 +1319,6 @@ cute
 cuts
 cuve
 cuvy
-cwms
 czar
 dabb
 dabs
@@ -1413,8 +1388,6 @@ dawt
 daza
 daze
 dazy
-dbms
-dbrn
 dcor
 dead
 deaf
@@ -1668,7 +1641,6 @@ dray
 dram
 drat
 draw
-drch
 dree
 dreg
 drey
@@ -2235,7 +2207,6 @@ frow
 frug
 fruz
 frwy
-fthm
 fubs
 fuci
 fuck
@@ -2542,8 +2513,6 @@ gowk
 gowl
 gown
 gpad
-gpcd
-gpss
 grab
 grad
 graf
@@ -2711,9 +2680,6 @@ hawm
 haws
 haze
 hazy
-hdbk
-hdkf
-hdlc
 hdwe
 head
 heaf
@@ -2816,7 +2782,6 @@ hits
 hive
 hizz
 hler
-hlqn
 hoar
 hoax
 hobo
@@ -2894,7 +2859,6 @@ howf
 howk
 howl
 hows
-hrzn
 htel
 hubb
 hubs
@@ -3283,7 +3247,6 @@ jawp
 jaws
 jazy
 jazz
-jctn
 jean
 jear
 jeed
@@ -3312,7 +3275,6 @@ jewy
 jews
 jger
 jhow
-jhvh
 jiao
 jibb
 jibe
@@ -3456,7 +3418,6 @@ kava
 kavi
 kazi
 kbar
-kbps
 kcal
 keap
 keas
@@ -3652,7 +3613,6 @@ kvah
 kvar
 kvas
 kwan
-kwhr
 labs
 lace
 lacy
@@ -3785,7 +3745,6 @@ levi
 levy
 levo
 lewd
-lgth
 lyam
 liar
 lias
@@ -3867,7 +3826,6 @@ ller
 lleu
 llew
 llyn
-lndg
 load
 loaf
 loam
@@ -4086,8 +4044,6 @@ maxi
 maza
 maze
 mazy
-mbps
-mdnt
 mdse
 mead
 meak
@@ -4223,9 +4179,6 @@ mixy
 myxo
 mixt
 mize
-mktg
-mmfd
-mmmm
 mnem
 moan
 moas
@@ -4323,7 +4276,6 @@ moxa
 moxo
 moze
 mozo
-mpbs
 mrem
 msec
 mtge
@@ -4564,7 +4516,6 @@ nows
 nowt
 noxa
 nozi
-npfx
 nsec
 nuba
 nubs
@@ -5018,7 +4969,6 @@ pius
 pixy
 pize
 pizz
-pkgs
 pkwy
 play
 plak
@@ -5043,10 +4993,8 @@ plum
 plup
 plur
 plus
-pmsg
 pnce
 pnyx
-pnxt
 pobs
 pock
 poco
@@ -5109,7 +5057,6 @@ pour
 pout
 pows
 poxy
-pptn
 prad
 pray
 pram
@@ -5159,8 +5106,6 @@ psia
 psid
 psig
 psis
-psst
-ptts
 puan
 publ
 pubs
@@ -5320,8 +5265,6 @@ ravi
 raws
 raze
 razz
-rcpt
-rcvr
 read
 reak
 real
@@ -5518,7 +5461,6 @@ rows
 rowt
 roxy
 rsum
-rsvp
 rube
 ruby
 rubs
@@ -5643,8 +5585,6 @@ scap
 scar
 scat
 scaw
-scfh
-scfm
 scho
 scye
 scil
@@ -5655,7 +5595,6 @@ scop
 scot
 scow
 scry
-sctd
 scud
 scug
 scum
@@ -5664,7 +5603,6 @@ scup
 scur
 scut
 scuz
-sdlc
 seah
 seak
 seal
@@ -5773,9 +5711,7 @@ shor
 shot
 shou
 show
-shpt
 shri
-shtg
 shug
 shul
 shun
@@ -6057,7 +5993,6 @@ spug
 spun
 spur
 sput
-sqrt
 srac
 sris
 ssed
@@ -6071,7 +6006,6 @@ stap
 star
 stat
 staw
-stbd
 steg
 stey
 stem
@@ -6087,7 +6021,6 @@ stye
 stim
 stir
 styx
-stlg
 stoa
 stob
 stod
@@ -6168,7 +6101,6 @@ suwe
 suzy
 svan
 svce
-svgs
 swab
 swad
 swag
@@ -6268,10 +6200,8 @@ taws
 taxa
 taxi
 taxy
-tbsp
 tche
 tchi
-tchr
 tchu
 tead
 teak
@@ -6427,7 +6357,6 @@ tits
 tyum
 tivy
 tiza
-tnpk
 toad
 toag
 toat
@@ -6558,7 +6487,6 @@ trun
 tsar
 tshi
 tsia
-tsks
 tsun
 tuan
 tuba
@@ -6837,7 +6765,6 @@ vugh
 vugs
 vulg
 vuln
-vvll
 waac
 waag
 waar
@@ -7094,7 +7021,6 @@ wraw
 wren
 wrig
 writ
-wrnt
 wrox
 wudu
 wuff
@@ -7106,7 +7032,6 @@ wusp
 wuss
 wust
 wuzu
-xctl
 xdiv
 xema
 xeme

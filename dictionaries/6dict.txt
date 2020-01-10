@@ -3305,7 +3305,6 @@ bizant
 byzant
 bizone
 bjorne
-bkbndr
 blabby
 blacky
 blacks
@@ -6564,7 +6563,6 @@ crusty
 crusts
 crutch
 cruxes
-crwths
 csects
 ctenii
 cuadra
@@ -10339,7 +10337,6 @@ frusta
 frutex
 fsiest
 fstore
-ftncmd
 ftnerr
 fubbed
 fucate
@@ -17271,7 +17268,6 @@ moxies
 mozart
 mozing
 mpondo
-mtscmd
 mucago
 mucaro
 mucate
@@ -24983,7 +24979,6 @@ staved
 staver
 staves
 staxis
-stddmp
 steady
 steads
 steaks
@@ -27233,7 +27228,6 @@ tsadis
 tsamba
 tsetse
 tsking
-tsktsk
 tsotsi
 tsures
 tsuris
