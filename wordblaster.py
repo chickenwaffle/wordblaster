@@ -57,23 +57,23 @@ import argparse
 from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
 
 parser = argparse.ArgumentParser(description='Defeat Wordscapes at its own game')
-parser.add_argument('-c', \
-                    '--circle_size', \
-                    type=int, \
-                    default=6, \
-                    metavar='', \
+parser.add_argument('-c', 
+                    '--circle_size', 
+                    type=int, 
+                    default=6, 
+                    metavar='', 
                     help='Number of letters in circle [default=6]')
-parser.add_argument('-m', \
-                    '--min', \
-                    type=int, \
-                    default=3, \
-                    metavar='', \
+parser.add_argument('-m', 
+                    '--min', 
+                    type=int, 
+                    default=3, 
+                    metavar='', 
                     help='length of words to start bruteforcing [default=3]')
-parser.add_argument('letter_bank', \
-                    type=str, \
-                    default="abcdefg", \
-                    metavar='', \
+parser.add_argument('letter_bank', 
+                    type=str, 
+                    default="abcdefg", 
                     help='letters in the circle, starting from the top going clockwise')
+parser.add_argument('--slow', action='store_true')
 args = parser.parse_args()
 
 def duplicate (stringbuilder, found_words):
@@ -164,9 +164,19 @@ if __name__ == "__main__":
             # array of words, and the permutation in the array
             # of perms
             for word in dictionary:
+
+                # When the --slow flag is set, the computer will output what it's comparing
+                if args.slow:
+                    print ("CPU: \"Is " + stringbuilder + " the same as " + word + "?\"")
+
+                # After the word is found in the dictionary, draw it in the game
                 if stringbuilder == word and not duplicate(stringbuilder, found_words):
                     found_words.append(stringbuilder)
                     print ("Found word: " + stringbuilder)
+
+                    # The pause is to make verbosity easier to read
+                    if args.slow:
+                        time.sleep(1)
 
                     # Perform the touch screen interaction here
                     device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
@@ -179,5 +189,5 @@ if __name__ == "__main__":
                     device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
                     time.sleep(speed)
 
-                    time.sleep(speed*5)
+                    time.sleep(speed*4)
                     break
