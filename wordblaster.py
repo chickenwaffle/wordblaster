@@ -1,7 +1,7 @@
 #!/usr/bin/env monkeyrunner                                                         
 #
 # This is a Wordscapes "smartforcer" for Jython 2.5.3
-# Version 1.0
+# Version 2.0
 #
 # Created by Matt Wilson
 # January 8, 2020
@@ -78,7 +78,7 @@ args = parser.parse_args()
 
 def duplicate (stringbuilder, found_words):
     if stringbuilder in found_words:
-        print ("Found word: " + stringbuilder + " (duplicate)")
+        print ("\nFound word: " + stringbuilder + " (duplicate)")
         return True
     else:
         return False
@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
     # The lower the number, the faster the lines are drawn.
     # Do not go lower than .03
-    speed = .06
+    speed = .065
 
     # Constant coordinates for letters positions in the circle, listed by size
     CIRCLE6_X = [ 540,  750,  750,  540,  330, 330 ]
@@ -167,12 +167,12 @@ if __name__ == "__main__":
 
                 # When the --slow flag is set, the computer will output what it's comparing
                 if args.slow:
-                    print ("CPU: \"Is " + stringbuilder + " the same as " + word + "?\"")
+                    print ("CPU: \"Is " + stringbuilder + " the same as " + word + "?\"\r") ,
 
                 # After the word is found in the dictionary, draw it in the game
                 if stringbuilder == word and not duplicate(stringbuilder, found_words):
                     found_words.append(stringbuilder)
-                    print ("Found word: " + stringbuilder)
+                    print ("\nFound word: " + stringbuilder)
 
                     # The pause is to make verbosity easier to read
                     if args.slow:
@@ -189,5 +189,5 @@ if __name__ == "__main__":
                     device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
                     time.sleep(speed)
 
-                    time.sleep(speed*4)
+                    time.sleep(speed*5)
                     break
