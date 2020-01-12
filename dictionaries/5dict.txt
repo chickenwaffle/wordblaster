@@ -11458,6 +11458,7 @@ regle
 regma
 regna
 regur
+rehab
 rehem
 rehid
 rehoe
