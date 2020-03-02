@@ -54,7 +54,6 @@
                                                                                     
 import time
 import argparse
-from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
 
 parser = argparse.ArgumentParser(description='Defeat Wordscapes at its own game')
 parser.add_argument('-c', 
@@ -69,6 +68,9 @@ parser.add_argument('-m',
                     default=3, 
                     metavar='', 
                     help='length of words to start bruteforcing [default=3]')
+parser.add_argument('--simulate', 
+                    action='store_true',
+                    help='Run a simulation without smartphone interaction')
 parser.add_argument('letter_bank', 
                     type=str, 
                     default="abcdefg", 
@@ -76,9 +78,12 @@ parser.add_argument('letter_bank',
 parser.add_argument('--slow', action='store_true')
 args = parser.parse_args()
 
+if not args.simulate:
+    from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
+
 def duplicate (stringbuilder, found_words):
     if stringbuilder in found_words:
-        print ("\nFound word: " + stringbuilder + " (duplicate)")
+        #print ("\nFound word: " + stringbuilder + " (duplicate)")
         return True
     else:
         return False
@@ -95,7 +100,8 @@ if __name__ == "__main__":
     CIRCLE6_X = [ 540,  750,  750,  540,  330, 330 ]
     CIRCLE6_Y = [1500, 1620, 1860, 1980, 1860, 1620]
 
-    device = MonkeyRunner.waitForConnection()
+    if not args.simulate:
+        device = MonkeyRunner.waitForConnection()
 
     ###################################################################
     # THE SMARTFORCER
@@ -172,22 +178,24 @@ if __name__ == "__main__":
                 # After the word is found in the dictionary, draw it in the game
                 if stringbuilder == word and not duplicate(stringbuilder, found_words):
                     found_words.append(stringbuilder)
-                    print ("\nFound word: " + stringbuilder)
+                    print ("Found word: " + stringbuilder)
+                    #time.sleep(1.5) ###########################################################
 
                     # The pause is to make verbosity easier to read
                     if args.slow:
                         time.sleep(1)
 
                     # Perform the touch screen interaction here
-                    device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
-                    time.sleep(speed)
-        
-                    for i in range(1, letters):
-                        device.touch(draw_x[i], draw_y[i], MonkeyDevice.MOVE)
+                    if not args.simulate:
+                        device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
                         time.sleep(speed)
+        
+                        for i in range(1, letters):
+                            device.touch(draw_x[i], draw_y[i], MonkeyDevice.MOVE)
+                            time.sleep(speed)
    
-                    device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
-                    time.sleep(speed)
+                        device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
+                        time.sleep(speed)
 
-                    time.sleep(speed*5)
+                        time.sleep(speed*5)
                     break
