@@ -195,7 +195,5 @@ if __name__ == "__main__":
                             time.sleep(speed)
    
                         device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
-                        time.sleep(speed)
-
-                        time.sleep(speed*5)
+                        time.sleep(speed*6) # Wait a bit longer for animations to stop
                     break
