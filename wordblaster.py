@@ -13,5 +13,6 @@ if __name__ == "__main__":
     while coord < 1080:
         device.touch(coord, coord, MonkeyDevice.MOVE)
         time.sleep(.1)
+		coord = coord + 10
 
     device.touch(coord, coord, MonkeyDevice.UP)
