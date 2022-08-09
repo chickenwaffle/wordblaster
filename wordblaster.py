@@ -1,4 +1,4 @@
-#!/usr/bin/env monkeyrunner                                                         
+#!/usr/bin/env python2                                                         
 #
 # This is a Wordscapes "smartforcer" for Jython 2.5.3
 # Version 2.0
@@ -173,7 +173,7 @@ if __name__ == "__main__":
 
                 # When the --slow flag is set, the computer will output what it's comparing
                 if args.slow:
-                    print ("CPU: \"Is " + stringbuilder + " the same as " + word + "?\"\r") ,
+                    print ("CPU: \"Is " + stringbuilder + " the same as " + word + "?\"\r")
 
                 # After the word is found in the dictionary, draw it in the game
                 if stringbuilder == word and not duplicate(stringbuilder, found_words):
