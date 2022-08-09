@@ -173,12 +173,12 @@ if __name__ == "__main__":
 
                 # When the --slow flag is set, the computer will output what it's comparing
                 if args.slow:
-                    print ("CPU: \"Is " + stringbuilder + " the same as " + word + "?\"\r")
+                    print ("CPU: \"Is " + stringbuilder + " the same as " + word + "?\"\r"),
 
                 # After the word is found in the dictionary, draw it in the game
                 if stringbuilder == word and not duplicate(stringbuilder, found_words):
                     found_words.append(stringbuilder)
-                    print ("Found word: " + stringbuilder)
+                    print ("Found word: " + stringbuilder + "                              ")
                     #time.sleep(1.5) ###########################################################
 
                     # The pause is to make verbosity easier to read
