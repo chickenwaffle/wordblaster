@@ -1,7 +1,7 @@
-#!/usr/bin/env python2                                                         
+#!/usr/bin/env monkeyrunner
 #
 # This is a Wordscapes "smartforcer" for Jython 2.5.3
-# Version 2.0
+# Version 3.0
 #
 # Created by Matt Wilson
 # January 8, 2020
@@ -94,11 +94,18 @@ if __name__ == "__main__":
 
     # The lower the number, the faster the lines are drawn.
     # Do not go lower than .03
-    speed = .065
+    speed = .035
 
     # Constant coordinates for letters positions in the circle, listed by size
-    CIRCLE6_X = [ 540,  750,  750,  540,  330, 330 ]
-    CIRCLE6_Y = [1500, 1620, 1860, 1980, 1860, 1620]
+    # TODO: Find some way to un-hardcode this
+    CIRCLE5_X = [ 420,  588,  523,  315,  253]
+    CIRCLE5_Y = [1656, 1778, 1973, 1973, 1778]
+
+    CIRCLE6_X = [ 417,  581,  581,  417,  257,  257]
+    CIRCLE6_Y = [1646, 1740, 1925, 2020, 1925, 1740]
+
+    CIRCLE7_X = [ 420,  575,  612,  506,  335,  228,  266]
+    CIRCLE7_Y = [1635, 1710, 1877, 2014, 2014, 1877, 1710]
 
     if not args.simulate:
         device = MonkeyRunner.waitForConnection()
@@ -119,18 +126,48 @@ if __name__ == "__main__":
         drawpath_file = ''
         dict_file = ''
 
-        if letters == 3:
-            drawpath_file = 'drawpaths/6circle_3letter.txt'
-            dict_file     = 'dictionaries/3dict.txt'
-        elif letters == 4:
-            drawpath_file = 'drawpaths/6circle_4letter.txt'
-            dict_file     = 'dictionaries/4dict.txt'
-        elif letters == 5:
-            drawpath_file = 'drawpaths/6circle_5letter.txt'
-            dict_file     = 'dictionaries/5dict.txt'
-        elif letters == 6:
-            drawpath_file = 'drawpaths/6circle_6letter.txt'
-            dict_file     = 'dictionaries/6dict.txt'
+        if args.circle_size == 5:
+            if letters == 3:
+                drawpath_file = 'drawpaths/5circle_3letter.txt'
+                dict_file     = 'dictionaries/3dict.txt'
+            elif letters == 4:
+                drawpath_file = 'drawpaths/5circle_4letter.txt'
+                dict_file     = 'dictionaries/4dict.txt'
+            elif letters == 5:
+                drawpath_file = 'drawpaths/5circle_5letter.txt'
+                dict_file     = 'dictionaries/5dict.txt'
+
+        elif args.circle_size == 6:
+            if letters == 3:
+                drawpath_file = 'drawpaths/6circle_3letter.txt'
+                dict_file     = 'dictionaries/3dict.txt'
+            elif letters == 4:
+                drawpath_file = 'drawpaths/6circle_4letter.txt'
+                dict_file     = 'dictionaries/4dict.txt'
+            elif letters == 5:
+                drawpath_file = 'drawpaths/6circle_5letter.txt'
+                dict_file     = 'dictionaries/5dict.txt'
+            elif letters == 6:
+                drawpath_file = 'drawpaths/6circle_6letter.txt'
+                dict_file     = 'dictionaries/6dict.txt'
+
+        elif args.circle_size == 7:
+            if letters == 3:
+                drawpath_file = 'drawpaths/7circle_3letter.txt'
+                dict_file     = 'dictionaries/3dict.txt'
+            elif letters == 4:
+                drawpath_file = 'drawpaths/7circle_4letter.txt'
+                dict_file     = 'dictionaries/4dict.txt'
+            elif letters == 5:
+                drawpath_file = 'drawpaths/7circle_5letter.txt'
+                dict_file     = 'dictionaries/5dict.txt'
+            elif letters == 6:
+                drawpath_file = 'drawpaths/7circle_6letter.txt'
+                dict_file     = 'dictionaries/6dict.txt'
+            elif letters == 7:
+                drawpath_file = 'drawpaths/7circle_7letter.txt'
+                dict_file     = 'dictionaries/7dict.txt'
+
         f1 = open(drawpath_file, "r")
         f2 = open(dict_file    , "r")
         
@@ -163,8 +200,15 @@ if __name__ == "__main__":
                     if int(perm[j]) == i:
                         stringbuilder += args.letter_bank[j]
 
-                        draw_x[pos] = CIRCLE6_X[j]  # TODO: Rewrite a way to
-                        draw_y[pos] = CIRCLE6_Y[j]  # TODO: work with smaller/bigger circles
+                        if args.circle_size == 5:
+                            draw_x[pos] = CIRCLE5_X[j]
+                            draw_y[pos] = CIRCLE5_Y[j]
+                        elif args.circle_size == 6:
+                            draw_x[pos] = CIRCLE6_X[j]
+                            draw_y[pos] = CIRCLE6_Y[j]
+                        elif args.circle_size == 7:
+                            draw_x[pos] = CIRCLE7_X[j]
+                            draw_y[pos] = CIRCLE7_Y[j]
 
             # If an actual word is found, store the word in the 
             # array of words, and the permutation in the array
@@ -183,7 +227,8 @@ if __name__ == "__main__":
 
                     # The pause is to make verbosity easier to read
                     if args.slow:
-                        time.sleep(1)
+                        pass
+                        #time.sleep(1)
 
                     # Perform the touch screen interaction here
                     if not args.simulate:
@@ -195,5 +240,6 @@ if __name__ == "__main__":
                             time.sleep(speed)
    
                         device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
-                        time.sleep(speed*6) # Wait a bit longer for animations to stop
+                        if args.slow:
+                            time.sleep(speed*6) # Wait a bit longer for animations to stop
                     break
