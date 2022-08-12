@@ -4,3 +4,4 @@
 *.log
 *.lock
 *.tmp
+drawpaths/permutate.py
