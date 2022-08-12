@@ -1,1 +1,6 @@
-wordblaster
+*.o
+*.pyc
+*.class
+*.log
+*.lock
+*.tmp
