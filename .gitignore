@@ -1,0 +1,7 @@
+*.o
+*.class
+*.pyc
+*.log
+*.lock
+*.tmp
+drawpaths/permutate.py
