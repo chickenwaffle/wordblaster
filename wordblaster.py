@@ -1,7 +1,7 @@
 #!/usr/bin/env monkeyrunner
 #
-# This is a Wordscapes "smartforcer" for Jython 2.5.3
-# Version 3.0
+# This is a Wordscapes dictionary attacker using Jython 2.5.3
+# Version 3.1
 #
 # Created by Matt Wilson
 # January 8, 2020
@@ -12,7 +12,7 @@
 #
 # - Android SDK
 # - Java Development Kit 8
-# - Samsung Galaxy S10 (support for more devices to come)
+# - An Android Phone
 #
 #
 #
@@ -56,18 +56,12 @@ import time
 import argparse
 
 parser = argparse.ArgumentParser(description='Defeat Wordscapes at its own game')
-parser.add_argument('-c', 
-                    '--circle_size', 
-                    type=int, 
-                    default=6, 
-                    metavar='', 
-                    help='Number of letters in circle [default=6]')
 parser.add_argument('-m', 
                     '--min', 
                     type=int, 
                     default=3, 
                     metavar='', 
-                    help='length of words to start bruteforcing [default=3]')
+                    help='minimum length of words [default=3]')
 parser.add_argument('--simulate', 
                     action='store_true',
                     help='Run a simulation without smartphone interaction')
@@ -81,9 +75,9 @@ args = parser.parse_args()
 if not args.simulate:
     from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
 
-def duplicate (stringbuilder, found_words):
-    if stringbuilder in found_words:
-        #print ("\nFound word: " + stringbuilder + " (duplicate)")
+def duplicate (word_builder, found_words):
+    if word_builder in found_words:
+        #print ("\nFound word: " + word_builder + " (duplicate)")
         return True
     else:
         return False
@@ -94,7 +88,9 @@ if __name__ == "__main__":
 
     # The lower the number, the faster the lines are drawn.
     # Do not go lower than .03
-    speed = .035
+    speed = .03
+
+    circle_size = len(args.letter_bank)
 
     # Constant coordinates for letters positions in the circle, listed by size
     # TODO: Find some way to un-hardcode this
@@ -108,13 +104,15 @@ if __name__ == "__main__":
     CIRCLE7_Y = [1635, 1710, 1877, 2014, 2014, 1877, 1710]
 
     if not args.simulate:
+        print ("Connecting to Android device... "),
         device = MonkeyRunner.waitForConnection()
+        print ("Connected. Running.")
 
     ###################################################################
     # THE SMARTFORCER
     ###################################################################
 
-    for letters in range (args.min, args.circle_size+1):
+    for letters in range (args.min, circle_size+1):
 
         # These two variables store x,y coordinates for the line drawer.
         # The program will insert values into these arrays after
@@ -126,7 +124,7 @@ if __name__ == "__main__":
         drawpath_file = ''
         dict_file = ''
 
-        if args.circle_size == 5:
+        if circle_size == 5:
             if letters == 3:
                 drawpath_file = 'drawpaths/5circle_3letter.txt'
                 dict_file     = 'dictionaries/3dict.txt'
@@ -137,7 +135,7 @@ if __name__ == "__main__":
                 drawpath_file = 'drawpaths/5circle_5letter.txt'
                 dict_file     = 'dictionaries/5dict.txt'
 
-        elif args.circle_size == 6:
+        elif circle_size == 6:
             if letters == 3:
                 drawpath_file = 'drawpaths/6circle_3letter.txt'
                 dict_file     = 'dictionaries/3dict.txt'
@@ -151,7 +149,7 @@ if __name__ == "__main__":
                 drawpath_file = 'drawpaths/6circle_6letter.txt'
                 dict_file     = 'dictionaries/6dict.txt'
 
-        elif args.circle_size == 7:
+        elif circle_size == 7:
             if letters == 3:
                 drawpath_file = 'drawpaths/7circle_3letter.txt'
                 dict_file     = 'dictionaries/3dict.txt'
@@ -184,45 +182,45 @@ if __name__ == "__main__":
 
         # For every permutation of length of letters...
         for perm in permutations:
-            stringbuilder = ""
+            word_builder = ""
 
             # For every length of letter chain
             for i in range(1, letters+1):
                 pos = i-1
 
                 # For every letter in the circle
-                for j in range(0, args.circle_size):
+                for j in range(0, circle_size):
         
                     # Constructs a readable word from the permutation
                     # if the letters are        'abcdef',
                     # and the permutation is    '210300',
                     # the resulting word is     'bad'   .
                     if int(perm[j]) == i:
-                        stringbuilder += args.letter_bank[j]
+                        word_builder += args.letter_bank[j]
 
-                        if args.circle_size == 5:
+                        if circle_size == 5:
                             draw_x[pos] = CIRCLE5_X[j]
                             draw_y[pos] = CIRCLE5_Y[j]
-                        elif args.circle_size == 6:
+                        elif circle_size == 6:
                             draw_x[pos] = CIRCLE6_X[j]
                             draw_y[pos] = CIRCLE6_Y[j]
-                        elif args.circle_size == 7:
+                        elif circle_size == 7:
                             draw_x[pos] = CIRCLE7_X[j]
                             draw_y[pos] = CIRCLE7_Y[j]
 
             # If an actual word is found, store the word in the 
             # array of words, and the permutation in the array
             # of perms
-            for word in dictionary:
+            for dictionary_word in dictionary:
 
                 # When the --slow flag is set, the computer will output what it's comparing
                 if args.slow:
-                    print ("CPU: \"Is " + stringbuilder + " the same as " + word + "?\"\r"),
+                    print ("CPU: \"Is " + word_builder + " the same as " + dictionary_word + "?\"\r"),
 
                 # After the word is found in the dictionary, draw it in the game
-                if stringbuilder == word and not duplicate(stringbuilder, found_words):
-                    found_words.append(stringbuilder)
-                    print ("Found word: " + stringbuilder + "                              ")
+                if word_builder == dictionary_word and not duplicate(word_builder, found_words):
+                    found_words.append(word_builder)
+                    print ("Found word: " + word_builder + "                              ")
                     #time.sleep(1.5) ###########################################################
 
                     # The pause is to make verbosity easier to read
@@ -243,3 +241,5 @@ if __name__ == "__main__":
                         if args.slow:
                             time.sleep(speed*6) # Wait a bit longer for animations to stop
                     break
+
+    print ("Done.\n")
