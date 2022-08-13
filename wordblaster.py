@@ -87,8 +87,8 @@ if __name__ == "__main__":
     found_words = []
 
     # The lower the number, the faster the lines are drawn.
-    # Do not go lower than .03
-    speed = .03
+    # Do not go lower than .035
+    speed = .035
 
     circle_size = len(args.letter_bank)
 
