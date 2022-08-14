@@ -35,6 +35,7 @@
 #
 #
 #                     SIX LETTER LAYOUT
+#                        Galaxy S10
 #
 #                             0
 #                        (540, 1500)
@@ -94,22 +95,27 @@ if __name__ == "__main__":
 
     # Constant coordinates for letters positions in the circle, listed by size
     # TODO: Find some way to un-hardcode this
-    CIRCLE5_X = [ 420,  588,  523,  315,  253]
-    CIRCLE5_Y = [1656, 1778, 1973, 1973, 1778]
+    if circle_size is 5:
+        CIRCLE5_X = [ 420,  588,  523,  315,  253]
+        CIRCLE5_Y = [1656, 1778, 1973, 1973, 1778]
 
-    CIRCLE6_X = [ 417,  581,  581,  417,  257,  257]
-    CIRCLE6_Y = [1646, 1740, 1925, 2020, 1925, 1740]
+    elif circle_size is 6:
+        CIRCLE6_X = [ 417,  581,  581,  417,  257,  257]
+        CIRCLE6_Y = [1646, 1740, 1925, 2020, 1925, 1740]
 
-    CIRCLE7_X = [ 420,  575,  612,  506,  335,  228,  266]
-    CIRCLE7_Y = [1635, 1710, 1877, 2014, 2014, 1877, 1710]
+    elif circle_size is 7:
+        CIRCLE7_X = [ 420,  575,  612,  506,  335,  228,  266]
+        CIRCLE7_Y = [1635, 1710, 1877, 2014, 2014, 1877, 1710]
 
     if not args.simulate:
         print ("Connecting to Android device... "),
         device = MonkeyRunner.waitForConnection()
-        print ("Connected. Running.")
+        print ("Connected.")
+
+
 
     ###################################################################
-    # THE SMARTFORCER
+    # THE DICTIONARY ATTACK
     ###################################################################
 
     for letters in range (args.min, circle_size+1):
@@ -208,9 +214,9 @@ if __name__ == "__main__":
                             draw_x[pos] = CIRCLE7_X[j]
                             draw_y[pos] = CIRCLE7_Y[j]
 
-            # If an actual word is found, store the word in the 
-            # array of words, and the permutation in the array
-            # of perms
+            # If an actual word is found, add it to
+            # the found_words array.  This will be
+            # used to check for duplicates.
             for dictionary_word in dictionary:
 
                 # When the --slow flag is set, the computer will output what it's comparing
@@ -238,8 +244,8 @@ if __name__ == "__main__":
                             time.sleep(speed)
    
                         device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
-                        if args.slow:
-                            time.sleep(speed*6) # Wait a bit longer for animations to stop
+                        device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
+                        time.sleep(speed)
                     break
 
     print ("Done.\n")
