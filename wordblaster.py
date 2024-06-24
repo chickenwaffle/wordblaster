@@ -63,6 +63,12 @@ parser.add_argument('-m',
                     default=3, 
                     metavar='', 
                     help='minimum length of words [default=3]')
+parser.add_argument('-o', 
+                    '--only', 
+                    type=int, 
+                    default=-1, 
+                    metavar='', 
+                    help='only solve words of this length [default=3]')
 parser.add_argument('--simulate', 
                     action='store_true',
                     help='Run a simulation without smartphone interaction')
@@ -88,6 +94,7 @@ if __name__ == "__main__":
     found_words = []
 
     # The lower the number, the faster the lines are drawn.
+    # Milliseconds to sleep in between touch events (down,drag,release)
     # Do not go lower than .035
     speed = .035
 
@@ -95,17 +102,26 @@ if __name__ == "__main__":
 
     # Constant coordinates for letters positions in the circle, listed by size
     # TODO: Find some way to un-hardcode this
+
+    if circle_size is 3:
+        CIRCLE5_X = [ 540,  588,  523]
+        CIRCLE5_Y = [1585, 1778, 1973]
+
+    if circle_size is 4:
+        CIRCLE5_X = [ 540,  588,  523,  315]
+        CIRCLE5_Y = [1585, 1778, 1973, 1973]
+
     if circle_size is 5:
-        CIRCLE5_X = [ 420,  588,  523,  315,  253]
-        CIRCLE5_Y = [1656, 1778, 1973, 1973, 1778]
+        CIRCLE5_X = [ 540,  768,  682,  400,  312]
+        CIRCLE5_Y = [1585, 1750, 2018, 2018, 1750]
 
     elif circle_size is 6:
-        CIRCLE6_X = [ 417,  581,  581,  417,  257,  257]
-        CIRCLE6_Y = [1646, 1740, 1925, 2020, 1925, 1740]
+        CIRCLE6_X = [ 540,  581,  581,  417,  257,  257]
+        CIRCLE6_Y = [1585, 1750, 2018, 2018, 1750, 1740]
 
     elif circle_size is 7:
-        CIRCLE7_X = [ 420,  575,  612,  506,  335,  228,  266]
-        CIRCLE7_Y = [1635, 1710, 1877, 2014, 2014, 1877, 1710]
+        CIRCLE7_X = [ 540,  737,  783,  648,  432,  295,  344]
+        CIRCLE7_Y = [1585, 1664, 1874, 2044, 2044, 1874, 1664]
 
     if not args.simulate:
         print ("Connecting to Android device... "),
@@ -118,7 +134,16 @@ if __name__ == "__main__":
     # THE DICTIONARY ATTACK
     ###################################################################
 
-    for letters in range (args.min, circle_size+1):
+    min_wordlength = args.min
+    max_iterations = circle_size + 1
+    
+    # Jank, but if --only is specified, only solve for x length words
+    # then stop running
+    if args.only > 0:
+        min_wordlength = args.only
+        max_wordlength = args.only + 1 # has to be higher than min or the script won't run
+
+    for letters in range (min_wordlength, max_wordlength):
 
         # These two variables store x,y coordinates for the line drawer.
         # The program will insert values into these arrays after
@@ -130,8 +155,30 @@ if __name__ == "__main__":
         drawpath_file = ''
         dict_file = ''
 
+        if circle_size == 3:
+            if letters == 2:
+                drawpath_file = 'drawpaths/3circle_2letter.txt'
+                dict_file     = 'dictionaries/2dict.txt'
+            elif letters == 3:
+                drawpath_file = 'drawpaths/3circle_3letter.txt'
+                dict_file     = 'dictionaries/3dict.txt'
+
+        if circle_size == 4:
+            if letters == 2:
+                drawpath_file = 'drawpaths/4circle_2letter.txt'
+                dict_file     = 'dictionaries/2dict.txt'
+            elif letters == 3:
+                drawpath_file = 'drawpaths/4circle_3letter.txt'
+                dict_file     = 'dictionaries/3dict.txt'
+            elif letters == 4:
+                drawpath_file = 'drawpaths/4circle_4letter.txt'
+                dict_file     = 'dictionaries/4dict.txt'
+
         if circle_size == 5:
-            if letters == 3:
+            if letters == 2:
+                drawpath_file = 'drawpaths/5circle_2letter.txt'
+                dict_file     = 'dictionaries/2dict.txt'
+            elif letters == 3:
                 drawpath_file = 'drawpaths/5circle_3letter.txt'
                 dict_file     = 'dictionaries/3dict.txt'
             elif letters == 4:
@@ -142,7 +189,10 @@ if __name__ == "__main__":
                 dict_file     = 'dictionaries/5dict.txt'
 
         elif circle_size == 6:
-            if letters == 3:
+            if letters == 2:
+                drawpath_file = 'drawpaths/6circle_2letter.txt'
+                dict_file     = 'dictionaries/2dict.txt'
+            elif letters == 3:
                 drawpath_file = 'drawpaths/6circle_3letter.txt'
                 dict_file     = 'dictionaries/3dict.txt'
             elif letters == 4:
@@ -156,7 +206,10 @@ if __name__ == "__main__":
                 dict_file     = 'dictionaries/6dict.txt'
 
         elif circle_size == 7:
-            if letters == 3:
+            if letters == 2:
+                drawpath_file = 'drawpaths/7circle_2letter.txt'
+                dict_file     = 'dictionaries/2dict.txt'
+            elif letters == 3:
                 drawpath_file = 'drawpaths/7circle_3letter.txt'
                 dict_file     = 'dictionaries/3dict.txt'
             elif letters == 4:
