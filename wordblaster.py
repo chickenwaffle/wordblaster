@@ -135,7 +135,7 @@ if __name__ == "__main__":
     ###################################################################
 
     min_wordlength = args.min
-    max_iterations = circle_size + 1
+    max_wordlength = circle_size + 1
     
     # Jank, but if --only is specified, only solve for x length words
     # then stop running
