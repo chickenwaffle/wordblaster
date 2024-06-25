@@ -89,6 +89,23 @@ def duplicate (word_builder, found_words):
     else:
         return False
 
+# Returns a set containing a hash map of every line in a file
+# Used for obtaining O(1) search complexity
+def load_words(file_path):
+    words = set()
+
+    f = open(file_path, "r") 
+
+    dictionary   = f.readlines()
+
+    # Remove new line characters at the end of each word
+    dictionary = [endl.strip() for endl in dictionary]
+
+    for word in dictionary:
+        words.add(word)
+
+    return words
+
 if __name__ == "__main__":
     # The words found in dictionaries will be stored here
     found_words = []
@@ -96,7 +113,7 @@ if __name__ == "__main__":
     # The lower the number, the faster the lines are drawn.
     # Milliseconds to sleep in between touch events (down,drag,release)
     # Do not go lower than .035
-    speed = .035
+    speed = .04
 
     circle_size = len(args.letter_bank)
 
@@ -225,19 +242,11 @@ if __name__ == "__main__":
                 drawpath_file = 'drawpaths/7circle_7letter.txt'
                 dict_file     = 'dictionaries/7dict.txt'
 
-        f1 = open(drawpath_file, "r")
-        f2 = open(dict_file    , "r")
-        
-        permutations = f1.readlines()
-        dictionary   = f2.readlines()
+        f = open(drawpath_file, "r")
+        permutations = f.readlines()
+        f.close()
 
-        # Remove new line characters at the end of each word
-        dictionary = [endl.strip() for endl in dictionary]
-
-        # The permutations and dictionary are loaded into memory
-        # and we no longer need their file objects.
-        f1.close()
-        f2.close()
+        dictionary = load_words(dict_file)
 
         # For every permutation of length of letters...
         for perm in permutations:
@@ -257,7 +266,13 @@ if __name__ == "__main__":
                     if int(perm[j]) == i:
                         word_builder += args.letter_bank[j]
 
-                        if circle_size == 5:
+                        if circle_size == 3:
+                            draw_x[pos] = CIRCLE3_X[j]
+                            draw_y[pos] = CIRCLE3_Y[j]
+                        elif circle_size == 4:
+                            draw_x[pos] = CIRCLE4_X[j]
+                            draw_y[pos] = CIRCLE4_Y[j]
+                        elif circle_size == 5:
                             draw_x[pos] = CIRCLE5_X[j]
                             draw_y[pos] = CIRCLE5_Y[j]
                         elif circle_size == 6:
@@ -267,18 +282,14 @@ if __name__ == "__main__":
                             draw_x[pos] = CIRCLE7_X[j]
                             draw_y[pos] = CIRCLE7_Y[j]
 
-            # If an actual word is found, add it to
-            # the found_words array.  This will be
-            # used to check for duplicates.
-            for dictionary_word in dictionary:
-
-                # When the --slow flag is set, the computer will output what it's comparing
-                if args.slow:
-                    print ("CPU: \"Is " + word_builder + " the same as " + dictionary_word + "?\"\r"),
-
+            for i in range (0, len(dictionary)):
+                    
                 # After the word is found in the dictionary, draw it in the game
-                if word_builder == dictionary_word and not duplicate(word_builder, found_words):
-                    found_words.append(word_builder)
+                if word_builder in dictionary and not duplicate(word_builder, found_words):
+
+                    # Add word to a list of already discovered words to save time
+                    found_words.append(word_builder) 
+
                     print ("Found word: " + word_builder + "                              ")
                     #time.sleep(1.5) ###########################################################
 
@@ -295,7 +306,7 @@ if __name__ == "__main__":
                         for i in range(1, letters):
                             device.touch(draw_x[i], draw_y[i], MonkeyDevice.MOVE)
                             time.sleep(speed)
-   
+
                         device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
                         device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
                         time.sleep(speed)
