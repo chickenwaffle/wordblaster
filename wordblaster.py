@@ -1,6 +1,6 @@
 #!/usr/bin/env monkeyrunner
 #
-# This is a Wordscapes dictionary attacker using Jython 2.5.3
+# This is a dictionary attacker for Wordscapes-style Android games using Jython 2.5.3
 # Version 3.1
 #
 # Created by Matt Wilson
@@ -10,7 +10,6 @@
 #
 # REQUIREMENTS:
 #
-# - Android SDK
 # - Java Development Kit 8
 # - An Android Phone
 #
