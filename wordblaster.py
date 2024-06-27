@@ -168,84 +168,64 @@ if __name__ == "__main__":
         draw_y = [0,0,0,0,0,0,0]
 
         # Load the appropriate file depending on the length of word
+        # and amount of letters in the circle
         drawpath_file = ''
-        dict_file = ''
 
         if circle_size == 3:
             if letters == 2:
                 drawpath_file = 'drawpaths/3circle_2letter.txt'
-                dict_file     = 'dictionaries/2dict.txt'
             elif letters == 3:
                 drawpath_file = 'drawpaths/3circle_3letter.txt'
-                dict_file     = 'dictionaries/3dict.txt'
 
-        if circle_size == 4:
+        elif circle_size == 4:
             if letters == 2:
                 drawpath_file = 'drawpaths/4circle_2letter.txt'
-                dict_file     = 'dictionaries/2dict.txt'
             elif letters == 3:
                 drawpath_file = 'drawpaths/4circle_3letter.txt'
-                dict_file     = 'dictionaries/3dict.txt'
             elif letters == 4:
                 drawpath_file = 'drawpaths/4circle_4letter.txt'
-                dict_file     = 'dictionaries/4dict.txt'
 
-        if circle_size == 5:
+        elif circle_size == 5:
             if letters == 2:
                 drawpath_file = 'drawpaths/5circle_2letter.txt'
-                dict_file     = 'dictionaries/2dict.txt'
             elif letters == 3:
                 drawpath_file = 'drawpaths/5circle_3letter.txt'
-                dict_file     = 'dictionaries/3dict.txt'
             elif letters == 4:
                 drawpath_file = 'drawpaths/5circle_4letter.txt'
-                dict_file     = 'dictionaries/4dict.txt'
             elif letters == 5:
                 drawpath_file = 'drawpaths/5circle_5letter.txt'
-                dict_file     = 'dictionaries/5dict.txt'
 
         elif circle_size == 6:
             if letters == 2:
                 drawpath_file = 'drawpaths/6circle_2letter.txt'
-                dict_file     = 'dictionaries/2dict.txt'
             elif letters == 3:
                 drawpath_file = 'drawpaths/6circle_3letter.txt'
-                dict_file     = 'dictionaries/3dict.txt'
             elif letters == 4:
                 drawpath_file = 'drawpaths/6circle_4letter.txt'
-                dict_file     = 'dictionaries/4dict.txt'
             elif letters == 5:
                 drawpath_file = 'drawpaths/6circle_5letter.txt'
-                dict_file     = 'dictionaries/5dict.txt'
             elif letters == 6:
                 drawpath_file = 'drawpaths/6circle_6letter.txt'
-                dict_file     = 'dictionaries/6dict.txt'
 
         elif circle_size == 7:
             if letters == 2:
                 drawpath_file = 'drawpaths/7circle_2letter.txt'
-                dict_file     = 'dictionaries/2dict.txt'
             elif letters == 3:
                 drawpath_file = 'drawpaths/7circle_3letter.txt'
-                dict_file     = 'dictionaries/3dict.txt'
             elif letters == 4:
                 drawpath_file = 'drawpaths/7circle_4letter.txt'
-                dict_file     = 'dictionaries/4dict.txt'
             elif letters == 5:
                 drawpath_file = 'drawpaths/7circle_5letter.txt'
-                dict_file     = 'dictionaries/5dict.txt'
             elif letters == 6:
                 drawpath_file = 'drawpaths/7circle_6letter.txt'
-                dict_file     = 'dictionaries/6dict.txt'
             elif letters == 7:
                 drawpath_file = 'drawpaths/7circle_7letter.txt'
-                dict_file     = 'dictionaries/7dict.txt'
 
         f = open(drawpath_file, "r")
         permutations = f.readlines()
         f.close()
 
-        dictionary = load_words(dict_file)
+        dictionary = load_words("dictionary.txt")
 
         # For every permutation of length of letters...
         for perm in permutations:
@@ -281,35 +261,32 @@ if __name__ == "__main__":
                             draw_x[pos] = CIRCLE7_X[j]
                             draw_y[pos] = CIRCLE7_Y[j]
 
-            while True:
                     
-                # After the word is found in the dictionary, draw it in the game
-                if word_builder in dictionary and not duplicate(word_builder, found_words):
-                    print(str(i))
+            # After the word is found in the dictionary, draw it in the game
+            if word_builder in dictionary and not duplicate(word_builder, found_words):
 
-                    # Add word to a list of already discovered words to save time
-                    found_words.append(word_builder) 
+                # Add word to a list of already discovered words to save time
+                found_words.append(word_builder) 
 
-                    print ("Found word: " + word_builder + "                              ")
-                    #time.sleep(1.5) ###########################################################
+                print ("Found word: " + word_builder + "                              ")
+                #time.sleep(1.5) ###########################################################
 
-                    # The pause is to make verbosity easier to read
-                    if args.slow:
-                        pass
-                        #time.sleep(1)
+                # The pause is to make verbosity easier to read
+                if args.slow:
+                    pass
+                    #time.sleep(1)
 
-                    # Perform the touch screen interaction here
-                    if not args.simulate:
-                        device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
+                # Perform the touch screen interaction here
+                if not args.simulate:
+                    device.touch(draw_x[0], draw_y[0], MonkeyDevice.DOWN)
+                    time.sleep(speed)
+    
+                    for i in range(1, letters):
+                        device.touch(draw_x[i], draw_y[i], MonkeyDevice.MOVE)
                         time.sleep(speed)
-        
-                        for i in range(1, letters):
-                            device.touch(draw_x[i], draw_y[i], MonkeyDevice.MOVE)
-                            time.sleep(speed)
 
-                        device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
-                        device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
-                        time.sleep(speed)
-                    break
+                    device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
+                    device.touch(draw_x[letters-1], draw_y[letters-1], MonkeyDevice.UP)
+                    time.sleep(speed)
 
     print ("Done.\n")
