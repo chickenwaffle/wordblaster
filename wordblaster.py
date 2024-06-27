@@ -281,10 +281,11 @@ if __name__ == "__main__":
                             draw_x[pos] = CIRCLE7_X[j]
                             draw_y[pos] = CIRCLE7_Y[j]
 
-            for i in range (0, len(dictionary)):
+            while True:
                     
                 # After the word is found in the dictionary, draw it in the game
                 if word_builder in dictionary and not duplicate(word_builder, found_words):
+                    print(str(i))
 
                     # Add word to a list of already discovered words to save time
                     found_words.append(word_builder) 
