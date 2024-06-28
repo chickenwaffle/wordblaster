@@ -81,6 +81,9 @@ args = parser.parse_args()
 if not args.simulate:
     from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
 
+def get_drawpath_file(circle_size, letters):
+    return "drawpaths/" + str(circle_size) + "circle_" + str(letters) + "letter.txt"
+
 def duplicate (word_builder, found_words):
     if word_builder in found_words:
         #print ("\nFound word: " + word_builder + " (duplicate)")
@@ -169,59 +172,7 @@ if __name__ == "__main__":
 
         # Load the appropriate file depending on the length of word
         # and amount of letters in the circle
-        drawpath_file = ''
-
-        if circle_size == 3:
-            if letters == 2:
-                drawpath_file = 'drawpaths/3circle_2letter.txt'
-            elif letters == 3:
-                drawpath_file = 'drawpaths/3circle_3letter.txt'
-
-        elif circle_size == 4:
-            if letters == 2:
-                drawpath_file = 'drawpaths/4circle_2letter.txt'
-            elif letters == 3:
-                drawpath_file = 'drawpaths/4circle_3letter.txt'
-            elif letters == 4:
-                drawpath_file = 'drawpaths/4circle_4letter.txt'
-
-        elif circle_size == 5:
-            if letters == 2:
-                drawpath_file = 'drawpaths/5circle_2letter.txt'
-            elif letters == 3:
-                drawpath_file = 'drawpaths/5circle_3letter.txt'
-            elif letters == 4:
-                drawpath_file = 'drawpaths/5circle_4letter.txt'
-            elif letters == 5:
-                drawpath_file = 'drawpaths/5circle_5letter.txt'
-
-        elif circle_size == 6:
-            if letters == 2:
-                drawpath_file = 'drawpaths/6circle_2letter.txt'
-            elif letters == 3:
-                drawpath_file = 'drawpaths/6circle_3letter.txt'
-            elif letters == 4:
-                drawpath_file = 'drawpaths/6circle_4letter.txt'
-            elif letters == 5:
-                drawpath_file = 'drawpaths/6circle_5letter.txt'
-            elif letters == 6:
-                drawpath_file = 'drawpaths/6circle_6letter.txt'
-
-        elif circle_size == 7:
-            if letters == 2:
-                drawpath_file = 'drawpaths/7circle_2letter.txt'
-            elif letters == 3:
-                drawpath_file = 'drawpaths/7circle_3letter.txt'
-            elif letters == 4:
-                drawpath_file = 'drawpaths/7circle_4letter.txt'
-            elif letters == 5:
-                drawpath_file = 'drawpaths/7circle_5letter.txt'
-            elif letters == 6:
-                drawpath_file = 'drawpaths/7circle_6letter.txt'
-            elif letters == 7:
-                drawpath_file = 'drawpaths/7circle_7letter.txt'
-
-        f = open(drawpath_file, "r")
+        f = open(get_drawpath_file(circle_size, letters), "r")
         permutations = f.readlines()
         f.close()
 
