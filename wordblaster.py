@@ -84,13 +84,6 @@ if not args.simulate:
 def get_drawpath_file(circle_size, letters):
     return "drawpaths/" + str(circle_size) + "circle_" + str(letters) + "letter.txt"
 
-def duplicate (word_builder, found_words):
-    if word_builder in found_words:
-        #print ("\nFound word: " + word_builder + " (duplicate)")
-        return True
-    else:
-        return False
-
 # Returns a set containing a hash map of every line in a file
 # Used for obtaining O(1) search complexity
 def load_words(file_path):
@@ -110,7 +103,7 @@ def load_words(file_path):
 
 if __name__ == "__main__":
     # The words found in dictionaries will be stored here
-    found_words = []
+    found_words = set()
 
     # The lower the number, the faster the lines are drawn.
     # Milliseconds to sleep in between touch events (down,drag,release)
@@ -214,10 +207,10 @@ if __name__ == "__main__":
 
                     
             # After the word is found in the dictionary, draw it in the game
-            if word_builder in dictionary and not duplicate(word_builder, found_words):
+            if word_builder in dictionary and word_builder not in found_words:
 
                 # Add word to a list of already discovered words to save time
-                found_words.append(word_builder) 
+                found_words.add(word_builder) 
 
                 print ("Found word: " + word_builder + "                              ")
                 #time.sleep(1.5) ###########################################################
