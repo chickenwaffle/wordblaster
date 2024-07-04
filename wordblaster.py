@@ -81,6 +81,9 @@ args = parser.parse_args()
 if not args.simulate:
     from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
 
+# Drawpath files are stored in drawpaths/
+# If given the function is     get_drawpath_file(5,3)
+# then the result is           return "drawpaths/5circle_3letter.txt"
 def get_drawpath_file(circle_size, letters):
     return "drawpaths/" + str(circle_size) + "circle_" + str(letters) + "letter.txt"
 
