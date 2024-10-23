@@ -119,20 +119,20 @@ if __name__ == "__main__":
     # TODO: Find some way to un-hardcode this
 
     if circle_size is 3:
-        CIRCLE5_X = [ 540,  588,  523]
-        CIRCLE5_Y = [1585, 1778, 1973]
+        CIRCLE3_X = [ 540,  588,  523]
+        CIRCLE3_Y = [1585, 1778, 1973]
 
     if circle_size is 4:
-        CIRCLE5_X = [ 540,  588,  523,  315]
-        CIRCLE5_Y = [1585, 1778, 1973, 1973]
+        CIRCLE4_X = [ 540,  588,  523,  315]
+        CIRCLE4_Y = [1585, 1778, 1973, 1973]
 
     if circle_size is 5:
         CIRCLE5_X = [ 540,  768,  682,  400,  312]
         CIRCLE5_Y = [1585, 1750, 2018, 2018, 1750]
 
     elif circle_size is 6:
-        CIRCLE6_X = [ 540,  581,  581,  417,  257,  257]
-        CIRCLE6_Y = [1585, 1750, 2018, 2018, 1750, 1740]
+        CIRCLE6_X = [ 540,  752,  752,  540,  326,  326]
+        CIRCLE6_Y = [1555, 1676, 1920, 2045, 1920, 1676]
 
     elif circle_size is 7:
         CIRCLE7_X = [ 540,  737,  783,  648,  432,  295,  344]
